@@ -1,14 +1,16 @@
 package main
 
+
+
 import (
 	"database/sql"
 	"fmt"
 	//"time"
-	. "github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
-	db, err := sql.Open("mysql", "astaxie:astaxie@/test?charset=utf8")
+	db, err := sql.Open("mysql", "root:@/test?charset=utf8")
 	checkErr(err)
 
 	//插入数据
