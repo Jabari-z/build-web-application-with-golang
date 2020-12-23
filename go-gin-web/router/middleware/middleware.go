@@ -6,6 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+
+//中间件
 // NoCache is a middleware function that appends headers
 // to prevent the client from caching the HTTP response.
 func NoCache(c *gin.Context) {

@@ -8,8 +8,13 @@ import (
 	"go-gin-web/pkg/errno"
 )
 
+
+//endpoint
+//     服务
+
 func AddUser(c *gin.Context)  {
 	var r model.User
+	// 绑定数据
 	if err := c.Bind(&r); err != nil {
 		SendResponse(c, errno.ErrBind, nil)
 		return
@@ -18,22 +23,23 @@ func AddUser(c *gin.Context)  {
 		Username: r.Username,
 		Password: r.Password,
 	}
-	// Validate the data.
+	// 核验数据
 	if err := u.Validate(); err != nil {
 		SendResponse(c, errno.ErrValidation, nil)
 		return
 	}
-	// Insert the user to the database.
+	// 插入数据库
 	if _,err := u.Create(); err != nil {
 		SendResponse(c, errno.ErrDatabase, nil)
 		return
 	}
-	// Show the user information.
+	// 处理
 	SendResponse(c, nil, u)
 }
 
 // SelectUser 查询用户
 func SelectUser(c *gin.Context)  {
+	//user_name 字段的内容
 	name := c.Query("user_name")
 	if name == ""{
 		SendResponse(c, errno.ErrValidation, nil)
@@ -45,7 +51,7 @@ func SelectUser(c *gin.Context)  {
 		SendResponse(c, errno.ErrUserNotFound, nil)
 		return
 	}
-	// Validate the data.
+	// 核验数据
 	if err := user.Validate(); err != nil {
 		SendResponse(c, errno.ErrUserNotFound, nil)
 		return

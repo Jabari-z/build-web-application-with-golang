@@ -7,7 +7,7 @@ type Errno struct {
 	Message string
 }
 
-//实现接口
+//实现接口 Error
 func (err *Errno) Error() string{
 	return err.Message
 }
@@ -33,16 +33,18 @@ func (err *Err) Addf(format string, args ...interface{}) error {
 	return err
 }
 
-//实现接口
+//实现接口 Error
 func (err *Err) Error() string {
 	return fmt.Sprintf("Err - code: %d, message: %s, error: %s", err.Code, err.Message, err.Err)
 }
+
 
 func DecodeErr(err error) (int, string) {
 	if err == nil {
 		return OK.Code, OK.Message
 	}
 
+	// 用法
 	switch typed := err.(type) {
 	case *Err:
 		return typed.Code, typed.Message
